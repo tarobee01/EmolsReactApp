@@ -12,6 +12,7 @@
   margin-top: 5vh;
 }
 
+
 .custom-toolbar {
   display: flex;
   justify-content: space-between;
@@ -50,8 +51,30 @@
   margin-bottom: 6px;
 }
 
+.left-right-container {
+  max-width: 1200px;
+    /* 最大幅を設定 */
+
+    position: fixed;
+    /* 位置を固定 */
+    width: 100%;
+    /* 幅を100%に設定 */
+    top: 72%;
+    /* 上からの位置を設定 */
+}
+
 .right {
   position: fixed;
-  right: 0;
-  top: 72%;
+  right: 3%;
+  top: 68%;
+  background-color: #f9f9f9;
+  padding: 5px 10px;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+  position: fixed;
+  left: 6%;
+  top: 69%;
 }

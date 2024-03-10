@@ -259,69 +259,175 @@ const MainScreen = ({ setActivePage, setDateData, eventData, setEventData, allEv
     setSelectedTextbox(type);
   };
 
+  //以下UI
   return (
     <div>
       <div className="event-container">
-        <div className="left">
-          <div>
-            {eventData.map((item, index) => (
-              <div key={index} style={{ width: '100px', height: '36px', backgroundColor: item.color, border: '1px solid black', textAlign: 'center', lineHeight: '36px' }}>
-                <p style={{ margin: 0, fontSize: '20px' }}>{item.title}</p>
-              </div>
-             ))}
+        <div className='left-right-container'>
+          <div className="left">
+            <div>
+              {eventData.map((item, index) => (
+                <div key={index} style={{
+                  width: '150px',
+                  height: '90px',
+                  borderRadius: '10px 10px 0 0',
+                  backgroundColor: item.color,
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  textAlign: 'center',
+                  lineHeight: '36px',
+                  marginBottom: '10px',
+                  position: 'relative'
+                }}>
+                  <p style={{
+                    margin: 0,
+                    fontSize: '30px',
+                    color: '#333',
+                    position: 'absolute',
+                    top: '46px',
+                    bottom: '0',
+                    right: '5px',
+                    padding: '2px'
+                  }}>{item.title}</p>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={addEvent} style={{
+              backgroundColor: '#2c3e50',
+              color: 'white',
+              padding: '10px 20px',
+              borderRadius: '10px',
+              border: 'none',
+              outline: 'none',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              transition: 'background-color 0.2s ease-in-out'
+            }}>イベントの追加</button>
           </div>
-          <button onClick={addEvent}>イベントの追加</button>
+          <div className="right">
+            {/* 増減ボタン */}
+            <button onClick={handleIncrement} style={{
+              backgroundColor: '#4CAF50',
+              border: 'none',
+              color: 'white',
+              padding: '2px 15px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              fontSize: '16px',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}>+</button>
+            <button onClick={handleDecrement} style={{
+              backgroundColor: '#f44336',
+              border: 'none',
+              color: 'white',
+              padding: '2px 15px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              fontSize: '16px',
+              margin: '4px 2px',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}>-</button>
+            <br />
+            <input
+              className='input-year'
+              type="number"
+              value={newStartDate.year}
+              onChange={(e) => handleValueChange('year', parseInt(e.target.value))}
+              onClick={() => handleTextboxSelect('year')} // テキストボックスがクリックされたときに選択状態にする
+              style={{
+                border: selectedTextbox === 'year' ? '2px solid blue' : '1px solid #ccc',
+                borderRadius: '5px',
+                padding: '5px 10px',
+                fontSize: '16px',
+                width: '80px',
+                textAlign: 'center',
+                outline: 'none',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                WebkitAppearance: 'none',
+                transition: 'border-color 0.3s ease'
+              }} // 選択されている場合はボーダーを表示
+            />
+            年
+            <br />
+            <input
+              className='input-day'
+              type="number"
+              value={newStartDate.month}
+              onChange={(e) => handleValueChange('month', parseInt(e.target.value))}
+              onClick={() => handleTextboxSelect('month')}
+              style={{
+                border: selectedTextbox === 'month' ? '2px solid blue' : '1px solid #ccc', // 選択されている場合はボーダーを青く、そうでない場合は灰色にする
+                borderRadius: '5px', // 角を丸くする
+                padding: '5px 10px', // テキストボックスの内側の余白を設定
+                fontSize: '16px', // フォントサイズを設定
+                width: '23px', // 幅を設定
+                textAlign: 'center', // テキストを中央揃えにする
+                outline: 'none', // フォーカス時のアウトラインを消す
+                boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)' // 軽い影をつける
+              }}
+            />
+            月
+            <input
+              className='input-day'
+              type="number"
+              value={newStartDate.day}
+              onChange={(e) => handleValueChange('day', parseInt(e.target.value))}
+              onClick={() => handleTextboxSelect('day')}
+              style={{
+                border: selectedTextbox === 'day' ? '2px solid blue' : '1px solid #ccc', // 選択されている場合はボーダーを青く、そうでない場合は灰色にする
+                borderRadius: '5px', // 角を丸くする
+                padding: '5px 10px', // テキストボックスの内側の余白を設定
+                fontSize: '16px', // フォントサイズを設定
+                width: '23px', // 幅を設定
+                textAlign: 'center', // テキストを中央揃えにする
+                outline: 'none', // フォーカス時のアウトラインを消す
+                boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)' // 軽い影をつける
+              }}
+            />
+            日
+            <br />
+            <input
+              className='input-day'
+              type="number"
+              value={newStartTime}
+              onChange={(e) => handleValueChange('startTime', parseInt(e.target.value))}
+              onClick={() => handleTextboxSelect('startTime')}
+              style={{
+                border: selectedTextbox === 'startTime' ? '2px solid blue' : '1px solid #ccc', // 選択されている場合はボーダーを青く、そうでない場合は灰色にする
+                borderRadius: '5px', // 角を丸くする
+                padding: '5px 10px', // テキストボックスの内側の余白を設定
+                fontSize: '16px', // フォントサイズを設定
+                width: '23px', // 幅を設定
+                textAlign: 'center', // テキストを中央揃えにする
+                outline: 'none', // フォーカス時のアウトラインを消す
+                boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)' // 軽い影をつける
+              }}
+            />:00~
+            <input
+              className='input-day'
+              type="number"
+              value={newEndTime}
+              onChange={(e) => handleValueChange('endTime', parseInt(e.target.value))}
+              onClick={() => handleTextboxSelect('endTime')}
+              style={{
+                border: selectedTextbox === 'endTime' ? '2px solid blue' : '1px solid #ccc', // 選択されている場合はボーダーを青く、そうでない場合は灰色にする
+                borderRadius: '5px', // 角を丸くする
+                padding: '5px 10px', // テキストボックスの内側の余白を設定
+                fontSize: '16px', // フォントサイズを設定
+                width: '23px', // 幅を設定
+                textAlign: 'center', // テキストを中央揃えにする
+                outline: 'none', // フォーカス時のアウトラインを消す
+                boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)' // 軽い影をつける
+              }}
+            />:00
+          </div>
         </div>
-        <div className="right">
-          <input
-            className='input-year'
-            type="number"
-            value={newStartDate.year}
-            onChange={(e) => handleValueChange('year', parseInt(e.target.value))}
-            onClick={() => handleTextboxSelect('year')} // テキストボックスがクリックされたときに選択状態にする
-            style={{ border: selectedTextbox === 'year' ? '2px solid blue' : 'none' }} // 選択されている場合はボーダーを表示
-          />
-          年
-          <br />
-          <input
-            className='input-day'
-            type="number"
-            value={newStartDate.month}
-            onChange={(e) => handleValueChange('month', parseInt(e.target.value))}
-            onClick={() => handleTextboxSelect('month')}
-            style={{ border: selectedTextbox === 'month' ? '2px solid blue' : 'none' }}
-          />
-          月
-          <input
-            className='input-day'
-            type="number"
-            value={newStartDate.day}
-            onChange={(e) => handleValueChange('day', parseInt(e.target.value))}
-            onClick={() => handleTextboxSelect('day')}
-            style={{ border: selectedTextbox === 'day' ? '2px solid blue' : 'none' }}
-          />
-          日
-          <br />
-          <input
-            className='input-day'
-            type="number"
-            value={newStartTime}
-            onChange={(e) => handleValueChange('startTime', parseInt(e.target.value))}
-            onClick={() => handleTextboxSelect('startTime')}
-            style={{ border: selectedTextbox === 'startTime' ? '2px solid blue' : 'none' }}
-          />:00~
-          <input
-            className='input-day'
-            type="number"
-            value={newEndTime}
-            onChange={(e) => handleValueChange('endTime', parseInt(e.target.value))}
-            onClick={() => handleTextboxSelect('endTime')}
-            style={{ border: selectedTextbox === 'endTime' ? '2px solid blue' : 'none' }}
-          />:00
-        </div>
-        {/* 増減ボタン */}
-        <button onClick={handleIncrement}>+</button>
-        <button onClick={handleDecrement}>-</button>
       </div>
       <div className="calendar-container">
         <div className="calendar-wrapper">
